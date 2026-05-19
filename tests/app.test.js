@@ -1,21 +1,47 @@
 const request = require('supertest');
 const app = require('../app');
 
-describe('SecureCart Application Tests', () => {
+describe('SecureCart CRUD API Tests', () => {
 
-    test('Unit Test - Application should respond successfully', async () => {
-        const response = await request(app).get('/');
+    test('Retrieve products successfully', async () => {
+
+        const response = await request(app).get('/products');
+
         expect(response.statusCode).toBe(200);
     });
 
-    test('Edge Case Test - Invalid route should return 404', async () => {
-        const response = await request(app).get('/invalid');
-        expect(response.statusCode).toBe(404);
+    test('Create new product successfully', async () => {
+
+        const response = await request(app)
+            .post('/products')
+            .send({ name: 'Tablet' });
+
+        expect(response.statusCode).toBe(201);
     });
 
-    test('Integration Test - Server response validation', async () => {
-        const response = await request(app).get('/');
-        expect(response.text).toContain('SecureCart');
+    test('Update existing product successfully', async () => {
+
+        const response = await request(app)
+            .put('/products/1')
+            .send({ name: 'Gaming Laptop' });
+
+        expect(response.statusCode).toBe(200);
+    });
+
+    test('Delete product successfully', async () => {
+
+        const response = await request(app)
+            .delete('/products/1');
+
+        expect(response.statusCode).toBe(200);
+    });
+
+    test('Edge Case - Invalid route returns 404', async () => {
+
+        const response = await request(app)
+            .get('/invalid');
+
+        expect(response.statusCode).toBe(404);
     });
 
 });
