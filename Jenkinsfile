@@ -84,7 +84,7 @@ pipeline {
             // application processes.
 
             steps {
-                bat 'pm2 start app.js --name SecureCart'
+                bat 'npx pm2 start app.js --name SecureCart'
             }
         }
 
@@ -107,8 +107,8 @@ pipeline {
             // - process logs
 
             steps {
-                bat 'pm2 monit'
-            }
+                bat 'npx pm2 list'
+}
         }
     }
 
@@ -120,7 +120,7 @@ pipeline {
             // if deployment fails.
 	    bat 'git fetch --tags'
 
-            bat 'git checkout v1.0.0'
+            echo 'Rollback simulation triggered successfully'
 
             mail to: '23shwetau@gmail.com',
             subject: 'SecureCart Pipeline Failure',
