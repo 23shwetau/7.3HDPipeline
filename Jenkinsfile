@@ -118,6 +118,7 @@ pipeline {
 
             // Rollback restores previous stable version
             // if deployment fails.
+	    bat 'git fetch --tags'
 
             bat 'git checkout v1.0.0'
 
