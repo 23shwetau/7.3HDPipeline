@@ -84,7 +84,7 @@ pipeline {
             // application processes.
 
             steps {
-                bat 'npx pm2 start app.js --name SecureCart'
+                bat 'node app.js'
             }
         }
 
@@ -107,7 +107,7 @@ pipeline {
             // - process logs
 
             steps {
-                bat 'npx pm2 list'
+              bat 'tasklist | findstr node'
 }
         }
     }
